@@ -98,6 +98,12 @@ public class Ventana extends javax.swing.JFrame {
         btn_new = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
         btn_play = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        btn_cut = new javax.swing.JButton();
+        btn_paste = new javax.swing.JButton();
+        btn_copy = new javax.swing.JButton();
+        btn_select = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
         jScrollPane1 = new javax.swing.JScrollPane();
         textSource = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -113,6 +119,11 @@ public class Ventana extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuSave1 = new javax.swing.JMenuItem();
         mnuEdit = new javax.swing.JMenu();
+        mnuCopy = new javax.swing.JMenuItem();
+        mnuCut = new javax.swing.JMenuItem();
+        mnuPaste = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        mnuSelectAll = new javax.swing.JMenuItem();
         mnuApp = new javax.swing.JMenu();
         mnuCompiler = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenuItem();
@@ -152,6 +163,56 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(btn_play);
+        jToolBar1.add(jSeparator3);
+
+        btn_cut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cut.png"))); // NOI18N
+        btn_cut.setToolTipText("cut");
+        btn_cut.setFocusable(false);
+        btn_cut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_cut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_cut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cutActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btn_cut);
+
+        btn_paste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/paste.png"))); // NOI18N
+        btn_paste.setToolTipText("Paste");
+        btn_paste.setFocusable(false);
+        btn_paste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_paste.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_paste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pasteActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btn_paste);
+
+        btn_copy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/copy.png"))); // NOI18N
+        btn_copy.setToolTipText("copy");
+        btn_copy.setFocusable(false);
+        btn_copy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_copy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_copy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_copyActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btn_copy);
+
+        btn_select.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/select.png"))); // NOI18N
+        btn_select.setToolTipText("select all");
+        btn_select.setFocusable(false);
+        btn_select.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_select.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_selectActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btn_select);
+        jToolBar1.add(jSeparator4);
 
         textSource.setColumns(20);
         textSource.setRows(5);
@@ -228,6 +289,40 @@ public class Ventana extends javax.swing.JFrame {
         jMenuBar1.add(mnuFile);
 
         mnuEdit.setText("Edit");
+
+        mnuCopy.setText("Copy");
+        mnuCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCopyActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuCopy);
+
+        mnuCut.setText("Cut");
+        mnuCut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCutActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuCut);
+
+        mnuPaste.setText("Paste");
+        mnuPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPasteActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuPaste);
+        mnuEdit.add(jSeparator2);
+
+        mnuSelectAll.setText("Select All");
+        mnuSelectAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSelectAllActionPerformed(evt);
+            }
+        });
+        mnuEdit.add(mnuSelectAll);
+
         jMenuBar1.add(mnuEdit);
 
         mnuApp.setText("Application");
@@ -329,9 +424,44 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_textLineFocusGained
 
     private void textSourceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textSourceFocusGained
-        textLine.append(i+"\n");
-        i++;
+        if (textSource.getText().isEmpty()) {
+            textLine.append(i + "\n");
+            i++;
+        }
+        
     }//GEN-LAST:event_textSourceFocusGained
+
+    private void mnuPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPasteActionPerformed
+        textSource.paste();
+    }//GEN-LAST:event_mnuPasteActionPerformed
+
+    private void mnuSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSelectAllActionPerformed
+        textSource.selectAll();
+    }//GEN-LAST:event_mnuSelectAllActionPerformed
+
+    private void mnuCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCopyActionPerformed
+        textSource.copy();
+    }//GEN-LAST:event_mnuCopyActionPerformed
+
+    private void mnuCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCutActionPerformed
+        textSource.cut();
+    }//GEN-LAST:event_mnuCutActionPerformed
+
+    private void btn_pasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pasteActionPerformed
+        textSource.paste();
+    }//GEN-LAST:event_btn_pasteActionPerformed
+
+    private void btn_copyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_copyActionPerformed
+        textSource.copy();
+    }//GEN-LAST:event_btn_copyActionPerformed
+
+    private void btn_cutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cutActionPerformed
+        textSource.cut();
+    }//GEN-LAST:event_btn_cutActionPerformed
+
+    private void btn_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selectActionPerformed
+       textSource.selectAll();
+    }//GEN-LAST:event_btn_selectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,25 +500,36 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_copy;
+    private javax.swing.JButton btn_cut;
     private javax.swing.JButton btn_new;
+    private javax.swing.JButton btn_paste;
     private javax.swing.JButton btn_play;
     private javax.swing.JButton btn_save;
+    private javax.swing.JButton btn_select;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenu mnuApp;
     private javax.swing.JMenuItem mnuCompiler;
+    private javax.swing.JMenuItem mnuCopy;
+    private javax.swing.JMenuItem mnuCut;
     private javax.swing.JMenu mnuEdit;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenuItem mnuNew;
     private javax.swing.JMenuItem mnuOpen;
+    private javax.swing.JMenuItem mnuPaste;
     private javax.swing.JMenuItem mnuSave;
     private javax.swing.JMenuItem mnuSave1;
     private javax.swing.JMenuItem mnuSaveAs;
+    private javax.swing.JMenuItem mnuSelectAll;
     private javax.swing.JTextArea textLine;
     private javax.swing.JTextArea textMessenger;
     private javax.swing.JTextArea textSource;
