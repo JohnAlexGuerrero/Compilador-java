@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compilador.java;
+package compilador;
 
+import compilador.Lexer;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -59,7 +60,7 @@ public class Ventana extends javax.swing.JFrame {
     }
     private void compiler(){
         saveFile();
-        /** try {
+        try {
                        
             Lexer lex = new Lexer(new FileReader(file));
             lex.yylex();
@@ -75,7 +76,7 @@ public class Ventana extends javax.swing.JFrame {
         } catch (IOException e) {
                 textMessenger.setForeground(Color.red);
                 textMessenger.setText(e.getMessage());
-        }**/
+        }
     }
     
     public Ventana() {
