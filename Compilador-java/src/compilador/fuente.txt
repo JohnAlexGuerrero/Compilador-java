@@ -1,10 +1,20 @@
+<Label>Enter at number</Label>
+<!-- alexander guerrero 8940 -->
+<!-- alexander guerrero 8940 -->
+<input type='radio' name='kdfjkfld' name='kdfjkfld'>
+<!-- alexander guerrero 8940 -->
 <input type='text' name='t1'> 
-	<input type='number' name='t2'> 
-	<input type='date' name='t3'> 
-	<input type='radio' name='t4'> 
-	<input type='checkbox' name='t5'> 
-	<Label>Enter at number</Label>
-	<select name='l1'><option>Red</option> 
-<option>Blue 2</option> 
-<option>Orange 3</option> 
-
+<!-- alexander guerrero 8940 -->
+<input type='number' min='10' max='100' maxlength='3'>
+<input type='number' name='t2'>
+<input type='date' name='t3'>
+<input type='radio' name='t4'>
+<input type='checkbox' name='t5'>
+<Label>Enter at number</Label>
+<select name='l1'>
+<option>Red</option>
+<option>Blue 2</option>
+<option>Orange 3</option>
+</select>
+<a href='youtube'>youtube</a>
+<!-- Comments dkjfdkfjdkfjk-->

@@ -1,16 +1,20 @@
 package compilador;
 import java.util.ArrayList;
+//import java_cup.runtime.*;
 %%
 
 %class Lexer
 %line 
 %column
+//%cup
 
 %{
     public ArrayList<Token> ts = new ArrayList<Token>();
     public String errlex="";
+    /**private Symbol symbol (int type){
+        return new Symbol(type, yyline, yycolum);
+    }**/
 %}
-
 
 //alfabetos
 Letra = [:jletter:]
@@ -24,28 +28,31 @@ palabra = {Letra}+ {numero}?
 numero = {Entero}|{Real}
 texto = {palabra} (" "{palabra}|" "{numero})*
 atributo = {palabra} "=" "'" ({palabra}|{numero}) "'"
-tipo = "type""="("'text'"|"'number'"|"'date'"|"'radio'"|"'checkbox'")
 
 //etiquetas
-input = "<" "input" " " {tipo} (" " {atributo})* ">"
+radio = "<" "input" " " "type""=" "'radio'" (" " {atributo})* " "? ">"
+btn = "<" "a" " " "href""=" "'"{palabra}"'" (" " {atributo})* " "? ">" {palabra} "<" "/" "a" ">"
+text = "<" "input" " " "type""=" "'text'" (" " {atributo})* " "? ">"
+checkbox = "<" "input" " " "type""=" "'checkbox'" (" " {atributo})* " "? ">"
+number = "<" "input" " " "type""=" "'number'" (" " {atributo})* " "? ">"
+date = "<" "input" " " "type""=" "'date'" (" " {atributo})* " "? ">"
 label = "<" "Label" (" " {atributo})* ">" {texto} "<" "/" "Label" ">"
 option = "<""option"">" {texto} "</" "option" ">"
-select = "<" "select" (" " {atributo})* ">" {option}+ //"</" "select" ">"
-comentario = "<!--"{texto}"-->"
-
-etiqueta = {input}|{select}|{label}|{option}|{comentario}
+select = "<" "select" (" " {atributo})* ">" ({Espacio}{option})+ {Espacio} "<""/""select"">"
+comentario = "<" "!" "-" "-" " "? {texto} " "? "-" "-" ">"
 
 Espacio = [ \t\r\n]
 
 %%
 
-{etiqueta} {ts.add(new Token("Tag",yytext()));}
-"text" {ts.add(new Token("input type Text",yytext()));}
-"number" {ts.add(new Token("input type Number",yytext()));}
-"date" {ts.add(new Token("input type Date",yytext()));}
-"radio" {ts.add(new Token("button of option",yytext()));}
-"checkbox" {ts.add(new Token("button check",yytext()));}
-{select} {ts.add(new Token("Tag type List",yytext()));}
-{comentario} {ts.add(new Token("Commetary",yytext()));}
+{label} {ts.add(new Token("TEXT",yytext()));}//return symbol(sym.label);}
+{btn} {ts.add(new Token("BUTTON",yytext()));}
+{text} {ts.add(new Token("TEXT TYPED",yytext()));}
+{number} {ts.add(new Token("NUMBER",yytext()));}
+{date} {ts.add(new Token("DATE",yytext()));}
+{radio} {ts.add(new Token("BUTTON OF OPTION",yytext()));}
+{checkbox} {ts.add(new Token("BUTTON CHECK",yytext()));}
+{select} {ts.add(new Token("LIST",yytext()));}
+{comentario} {ts.add(new Token("COMMENTARY",yytext()));}
 {Espacio} {}
 . {errlex += ("\nError: Símbolo no válido: " + yytext() + " En la linea: " + (yyline+1) + " columna: " + (yycolumn+1)  );}
